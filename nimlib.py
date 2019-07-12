@@ -1851,6 +1851,9 @@ def vlan2vlan(sourceVLAN,destVLAN):
       
 def attrs2csv(key):
     """ turn attributes into csv output, reads a file name or stdin """
+       
+    from collections import defaultdict
+   
     keys = {}
     keys_temp = {}
     key_order = []
