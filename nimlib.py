@@ -1853,6 +1853,7 @@ def attrs2csv(key):
     """ turn attributes into csv output, reads a file name or stdin """
        
     from collections import defaultdict
+    import fileinput
    
     keys = {}
     keys_temp = {}
