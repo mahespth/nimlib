@@ -1848,6 +1848,51 @@ def hmc_cli(lpar,command):
 
 def vlan2vlan(sourceVLAN,destVLAN):
     """ Update the VLAN during the migration """
+      
+def attrs2csv(key):
+    """ turn attributes into csv output, reads a file name or stdin """
+    keys = {}
+    keys_temp = {}
+    key_order = []
+    data = defaultdict(dict)
+    indexkey = copy.copy(key)
+
+    for line in fileinput.input():
+        out = process_lssyscfg_output( line.rstrip() )
+        for item,value in out.items():
+            if len(item) == 0 :
+                continue
+
+            if item == key:
+                keyvalue=value
+            else:
+                if keys.get(item) is None:
+                    keys[item]=True
+                    key_order.append(item)
+        
+                keys_temp[item]=value
+        
+        data[ keyvalue ]=copy.copy(keys_temp)
+        keys_temp.clear()
+
+    print( '"%s",' % indexkey, end='' )
+
+    for index in range( len(key_order) ):
+      if key_order[index] != indexkey:
+          print( '"%s",' % key_order[index], end='' )
+
+    print('')
+
+    #print(json.dumps(data, indent=4, sort_keys=True) )
+
+    for k in data:
+        print('"%s",' % k, end='' )
+        
+        for index in range( len(key_order) ):
+            if key_order[index] != indexkey:
+                print('"%s",' % (data[k].get(key_order[index],'null') ), end='' )
+
+        print()
 
 
 def hmc_capabilities(cec):
