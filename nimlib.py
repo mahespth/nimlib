@@ -1,7 +1,7 @@
 #!/usr/bin/python -tt
 
 # -*- coding: utf-8 -*-
-# vim:expandtab:ts=4:sw=4:ai:number
+# vim:expandtab:ts=4:sw=4:ai:number:syntax=python
 
 """
    Get the vios storage mappings.
